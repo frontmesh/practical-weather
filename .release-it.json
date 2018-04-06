@@ -2,7 +2,7 @@
   "changelogCommand": "standard-changelog",
   "safeBump": false,
   "github": {
-    "release": true
+    "release": false
   },
   "src": {
     "tagName": "v%s"
