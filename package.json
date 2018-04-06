@@ -8,7 +8,8 @@
   },
   "scripts": {
     "commitmsg": "commitlint -e $GIT_PARAMS",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "release": "release-it"
   },
   "dependencies": {
     "expo": "^26.0.0",
@@ -21,7 +22,8 @@
     "commitizen": "^2.9.6",
     "cz-conventional-changelog": "^2.1.0",
     "husky": "^0.14.3",
-    "react-native-dotenv": "^0.1.1"
+    "react-native-dotenv": "^0.1.1",
+    "release-it": "^7.3.0"
   },
   "config": {
     "commitizen": {
