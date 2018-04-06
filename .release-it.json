@@ -1,0 +1,6 @@
+{
+  "increment": "standard",
+  "beforeChangelogCommand": "standard-changelog -i CHANGELOG.md -s",
+  "changelogCommand": "standard-changelog | tail -n +3",
+  "safeBump": false
+}
