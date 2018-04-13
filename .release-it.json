@@ -1,9 +1,6 @@
 {
-  "changelogCommand": "standard-changelog",
+  "increment": "standard",
   "safeBump": false,
-  "github": {
-    "release": false
-  },
   "src": {
     "tagName": "v%s"
   },
