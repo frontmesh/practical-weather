@@ -3,6 +3,8 @@ import { Platform, Permissions, Text, View } from 'react-native';
 import { Constants, Location } from 'expo';
 import { API_KEY, GEO_API } from 'react-native-dotenv';
 
+import YQL from 'yql';
+
 export default class App extends Component {
   state = {
     location: null,
@@ -17,6 +19,11 @@ export default class App extends Component {
     } else {
       this._getLocationAsync();
     }
+
+    YQL('SELECT * FROM weather.forecast WHERE (location = @zip)')
+      .setParam('zip', 94089)
+      .setConfig('ssl', true)
+      .exec((err, res) => console.log(err, res));
   }
 
   _getLocationAsync = async () => {
