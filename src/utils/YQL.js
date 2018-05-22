@@ -72,6 +72,62 @@ class YQL {
     this._urlObj = urlObj;
     return urlObj.format();
   }
+
+  exec(callback) {
+    const url = this.getURL();
+    const config = {
+      headers: this.config.headers,
+      method: 'GET',
+      timeout: parseInt(this.config.timeout, 10),
+      url,
+    };
+
+    const handler = this._handleResponse.bind(this, callback);
+    this._httpRequest(config, handler);
+  }
+
+  _handleResponse(callback, error, response, body) {
+    if (error) {
+      return callback(error);
+    }
+
+    if (body) {
+      parseJSON(body, (error, body) => {
+        if (error) {
+          return callback(error, null);
+        }
+
+        error = null;
+
+        // Request returned an error, create an error object
+        if (body.error) {
+          error = new Error(body.error.description);
+        }
+
+        if (callback) {
+          callback(error, body);
+        }
+      });
+    } else {
+      throw new Error(YQL.ERROR.missingBody, null);
+    }
+  }
+
+  _httpRequest(...args) {
+    fetch(...args);
+  }
 }
+
+const parseJSON = (str, callback) => {
+  let result;
+  let error;
+  try {
+    result = JSON.parse(str);
+  } catch (e) {
+    error = e;
+  }
+
+  return callback(error, result);
+};
 
 export default YQL;

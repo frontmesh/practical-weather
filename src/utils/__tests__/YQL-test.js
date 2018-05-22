@@ -1,4 +1,5 @@
 import YQL from '../YQL';
+import { domainToASCII } from 'url';
 
 describe('YQL', () => {
   describe('constructor', () => {
@@ -108,10 +109,86 @@ describe('YQL', () => {
   describe('#exec', () => {
     describe('without a response', () => {
       const yql = new YQL('SHOW TABLES');
-      yql._httpRequest = jest.fn();
+      yql._httpRequest = jest.fn((config, callback) => {
+        callback();
+      });
 
       it('should throw an error', () => {
         expect(yql.exec.bind(yql)).toThrowError(new RegExp(YQL.ERROR.missingBody));
+      });
+    });
+
+    describe('with an HTTP error', () => {
+      const yql = new YQL('SHOW TABLES');
+      yql._httpRequest = jest.fn((config, callback) => {
+        callback('This is an error message');
+      });
+
+      it('should return an error', done => {
+        yql.exec(error => {
+          expect(error).toBe('This is an error message');
+          done();
+        });
+      });
+    });
+
+    describe('with a parsing error', () => {
+      const yql = new YQL('SHOW TABLES');
+      yql._httpRequest = jest.fn((config, callback) => {
+        callback(null, null, 'this is not valid json');
+      });
+
+      it('should respond with an error', done => {
+        yql.exec((error, body) => {
+          expect(error).toBeInstanceOf(Error);
+          expect(error.message).toBe('Unexpected token h in JSON at position 1');
+          done();
+        });
+      });
+    });
+
+    describe('with a YQL error', () => {
+      const yql = new YQL('SHOW TABLES');
+      var response = {
+        error: {
+          description: 'This is a YQL error',
+        },
+      };
+
+      yql._httpRequest = jest.fn((config, callback) => {
+        const json = JSON.stringify(response);
+        callback(null, null, json);
+      });
+
+      it('should respond with an error', done => {
+        yql.exec((error, body) => {
+          expect(error).toBeInstanceOf(Error);
+          expect(error.message).toBe(response.error.description);
+          done();
+        });
+      });
+    });
+
+    describe('with mocked response', () => {
+      const yql = new YQL('SHOW TABLES');
+      const response = {
+        query: {
+          results: {
+            tables: [],
+          },
+        },
+      };
+
+      yql._httpRequest = jest.fn((config, callback) => {
+        const json = JSON.stringify(response);
+        callback(null, null, json);
+      });
+
+      it('should respond correctly', done => {
+        yql.exec((error, body) => { //eslint-disable-line
+          expect(body).toEqual(response);
+          done();
+        });
       });
     });
   });
