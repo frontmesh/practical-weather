@@ -3,7 +3,7 @@ import { Platform, Permissions, Text, View } from 'react-native';
 import { Constants, Location } from 'expo';
 import { API_KEY, GEO_API } from 'react-native-dotenv';
 
-import YQL from 'yql';
+import YQL from './utils/YQL';
 
 export default class App extends Component {
   state = {
@@ -20,8 +20,9 @@ export default class App extends Component {
       this._getLocationAsync();
     }
 
-    YQL('SELECT * FROM weather.forecast WHERE (location = @zip)')
-      .setParam('zip', 94089)
+    const yql = new YQL('SELECT * FROM weather.forecast WHERE (location = @zip)');
+
+    yql.setParam('zip', 94089)
       .setConfig('ssl', true)
       .exec((err, res) => console.log(err, res));
   }

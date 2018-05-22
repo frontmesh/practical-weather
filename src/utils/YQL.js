@@ -1,3 +1,5 @@
+import url from 'url';
+
 class YQL {
   query = '';
   params = {};
@@ -34,6 +36,41 @@ class YQL {
       ...YQL.DEFAULT_CONFIG,
       ...config,
     };
+  }
+
+  setParam(key, value) {
+    this.params[key] = value;
+    return this;
+  }
+
+  setParams(params) {
+    this.params = { ...this.params, ...params };
+    return this;
+  }
+
+  setConfig(key, value) {
+    this.config[key] = value;
+    return this;
+  }
+
+  setConfigs(config) {
+    this.config = { ...this.config, ...config };
+    return this;
+  }
+
+  getURL() {
+    const baseURL = this.config.baseURL[this.config.ssl ? 'https' : 'http'];
+    // Create base url object
+    const urlObj = url.parse(baseURL, true);
+    const opts = {
+      format: 'json',
+      env: this.config.env,
+      q: this.query,
+    };
+
+    urlObj.query = { ...urlObj.query, ...opts, ...this.params };
+    this._urlObj = urlObj;
+    return urlObj.format();
   }
 }
 
