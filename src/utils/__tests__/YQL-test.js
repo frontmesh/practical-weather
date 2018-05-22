@@ -1,5 +1,4 @@
 import YQL from '../YQL';
-import { domainToASCII } from 'url';
 
 describe('YQL', () => {
   describe('constructor', () => {
