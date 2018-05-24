@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "myWeather",
-    "description": "This project is really great.",
-    "slug": "myWeather",
+    "name": "Practical Weather",
+    "description": "Practical weather app.",
+    "slug": "practicalWeather",
     "privacy": "public",
     "sdkVersion": "26.0.0",
     "platforms": ["ios", "android"],
@@ -21,7 +21,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.frontmesh.practicalWeather"
+    },
+    "android": {
+      "package": "com.frontmesh.practicalWeather"
     }
   }
 }

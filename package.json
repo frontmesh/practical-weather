@@ -14,7 +14,8 @@
     "commitmsg": "commitlint -e $GIT_PARAMS",
     "commit": "git-cz",
     "release": "release-it",
-    "test": "jest"
+    "test": "jest",
+    "appr": "appr"
   },
   "jest": {
     "preset": "jest-expo"
@@ -36,6 +37,7 @@
     "eslint": "^4.19.1",
     "eslint-config-universe": "^1.0.7",
     "eslint-plugin-react": "^7.7.0",
+    "exp": "^54.0.0",
     "husky": "^0.14.3",
     "jest-expo": "^27.0.1",
     "prettier": "1.12.0",
