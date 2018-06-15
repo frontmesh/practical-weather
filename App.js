@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, StatusBar } from 'react-native';
-import { StatusBar, View } from 'react-native';
 import { Provider } from 'react-redux';
 
 import { LoadingScreen } from './src/screens';
