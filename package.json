@@ -19,7 +19,14 @@
     "appr": "appr"
   },
   "jest": {
-    "preset": "jest-expo"
+    "preset": "jest-expo",
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/coverage/**",
+      "!**/build/**",
+      "!**/assets/**"
+    ]
   },
   "dependencies": {
     "expo": "^26.0.0",
