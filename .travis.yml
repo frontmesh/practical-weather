@@ -6,7 +6,7 @@ install:
 - npm i
 script:
 - npm run test
-- if [ "$TRAVIS_BRANCH" == "master" ]; then yarn appr; fi
+- 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then yarn appr; fi'
 before_install:
-- if [ "$TRAVIS_BRANCH" == "master" ]; then openssl aes-256-cbc -K $encrypted_c9ff443a4d87_key -iv $encrypted_c9ff443a4d87_iv
+- if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then openssl aes-256-cbc -K $encrypted_c9ff443a4d87_key -iv $encrypted_c9ff443a4d87_iv
   -in .env.enc -out .env -d; fi
