@@ -15,10 +15,18 @@
     "commit": "git-cz",
     "release": "release-it",
     "test": "jest",
+    "test:ci": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "appr": "appr"
   },
   "jest": {
-    "preset": "jest-expo"
+    "preset": "jest-expo",
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/coverage/**",
+      "!**/build/**",
+      "!**/assets/**"
+    ]
   },
   "dependencies": {
     "expo": "^26.0.0",
@@ -37,6 +45,7 @@
     "appr": "^2.0.0",
     "babel-eslint": "^8.2.2",
     "commitizen": "^2.9.6",
+    "coveralls": "^3.0.1",
     "cz-conventional-changelog": "^2.1.0",
     "eslint": "^4.19.1",
     "eslint-config-universe": "^1.0.7",

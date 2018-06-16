@@ -17,9 +17,13 @@ export default class Main extends Component {
     return (
       <View style={{ height: '100%' }}>
         <StatusBar backgroundColor="#852d91" barStyle="light-content" />
-        {!store ? <LoadingScreen /> : <Provider store={this.state.store}>
-          <App />
-        </Provider>}
+        {!store ? (
+          <LoadingScreen />
+        ) : (
+          <Provider store={this.state.store}>
+            <App />
+          </Provider>
+        )}
       </View>
     );
   }
