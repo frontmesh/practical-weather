@@ -4,10 +4,15 @@ import { THEME } from '../../config';
 const { COLOR, FONT, UNIT } = THEME;
 
 export default StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    alignContent: 'center',
+    justifyContent: 'center',
+  },
   brandname: {
     marginBottom: UNIT * 3.6,
-    tintColor: COLOR.WHITE,
-    height: FONT.SIZE.EXTRA_LARGE,
+    height: 100,
     resizeMode: 'contain',
   },
 });

@@ -26,6 +26,14 @@
       "!**/coverage/**",
       "!**/build/**",
       "!**/assets/**"
+    ],
+    "coverageReporters": [
+      "text-summary",
+      "json-summary"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/app/assets/"
     ]
   },
   "dependencies": {
