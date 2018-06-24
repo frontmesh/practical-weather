@@ -6,12 +6,13 @@ import { LinearGradient } from 'expo';
 import { ASSET, THEME, STYLE } from '../../config';
 import styles from './Loading.style';
 
+
 export default () => {
   return (
     <LinearGradient colors={THEME.GRADIENT} style={STYLE.SCREEN}>
       <View style={[styles.container]}>
-        <Motion  animation="pulse" easing="ease-in-out" iterationCount="infinite">
-          <Image style={styles.brandname} source={ASSET.logo} />
+        <Motion animation="pulse" easing="ease-in-out" iterationCount="infinite">
+          <Image style={styles.brandname} source={ASSET.getRandLogo} />
         </Motion>
       </View>
     </LinearGradient>
