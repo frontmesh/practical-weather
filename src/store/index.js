@@ -7,9 +7,8 @@ export default () => {
   return new Promise(resolve => {
     const store = createStore(
       reducers,
-      compose(
-        autoRehydrate()
-      )
+      undefined,
+      compose(autoRehydrate())
     );
 
     persistStore(
