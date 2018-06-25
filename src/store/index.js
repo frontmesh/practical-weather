@@ -5,7 +5,12 @@ import { reducers } from './modules';
 
 export default () => {
   return new Promise(resolve => {
-    const store = createStore(reducers, compose(autoRehydrate()));
+    const store = createStore(
+      reducers,
+      compose(
+        autoRehydrate()
+      )
+    );
 
     persistStore(
       store,

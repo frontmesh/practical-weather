@@ -1,4 +1,4 @@
-const logoList = [
+export const logoList = [
   require('../../assets/logo.png'),
   require('../../assets/logo2.png'),
   require('../../assets/logo3.png'),
