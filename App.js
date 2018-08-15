@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Asset, AppLoading } from 'expo';
 import { StatusBar, View } from 'react-native';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+
 import configureStore from './src/store';
 import { LoadingScreen } from './src/screens/';
 import App from './src/app';
@@ -11,28 +13,21 @@ class Main extends Component {
   constructor(props) {
     super(props);
 
+    const { store, persistor } = configureStore();
     this.state = {
-      store: undefined,
+      store,
+      persistor,
       isReady: false,
     };
   }
 
-  async loadStore() {
-    this.setState({
-      store: await configureStore(),
-    });
-  }
-
   async _cacheResourcesAsync() {
     const { logoList } = ASSET;
-    return Promise.all(
-      logoList.map(img => Asset.fromModule(img).downloadAsync()),
-      this.loadStore()
-    );
+    return Promise.all(logoList.map(img => Asset.fromModule(img).downloadAsync()));
   }
 
   render() {
-    const { store, isReady } = this.state;
+    const { store, persistor, isReady } = this.state;
 
     return (
       <View style={{ height: '100%' }}>
@@ -46,7 +41,9 @@ class Main extends Component {
           </AppLoading>
         ) : (
           <Provider store={store}>
-            <App />
+            <PersistGate loading={null} persistor={persistor}>
+              <App />
+            </PersistGate>
           </Provider>
         )}
       </View>

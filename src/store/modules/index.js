@@ -1,7 +1,13 @@
-import { combineReducers } from 'redux';
+import { AsyncStorage } from 'react-native';
+import { persistCombineReducers } from 'redux-persist';
 
 import locationReducer from './location';
 
-export default combineReducers({
+const config = {
+  key: 'primary',
+  storage: AsyncStorage,
+};
+
+export default persistCombineReducers(config, {
   location: locationReducer,
 });

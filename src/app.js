@@ -1,7 +1,5 @@
-import { StackNavigator } from 'react-navigation';
-import {
-  MainScreen,
-} from './screens';
+import { createStackNavigator } from 'react-navigation';
+import { MainScreen } from './screens';
 
 const navigationOptions = {
   headerBackTitle: ' ',
@@ -14,7 +12,7 @@ const stackOptions = {
   initialRouteName: 'Main',
 };
 
-export default StackNavigator(
+export default createStackNavigator(
   {
     Main: { screen: MainScreen, navigationOptions },
   },

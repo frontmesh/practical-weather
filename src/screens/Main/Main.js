@@ -3,11 +3,17 @@ import { View, Text, Permissions } from 'react-native';
 import { Constants, Location } from 'expo';
 
 import { THEME } from '../../config';
-const { COLOR: { BLACK }, PRIMARY } = THEME;
+const {
+  COLOR: { BLACK },
+  PRIMARY,
+} = THEME;
 
 class Main extends Component {
   static navigationOptions = ({
-    navigation: { navigate, state: { params: { backgroundColor = PRIMARY } = { } } },
+    navigation: {
+      navigate,
+      state: { params: { backgroundColor = PRIMARY } = {} },
+    },
   }) => ({
     headerTransparent: true,
     title: 'Blabla',
@@ -40,7 +46,7 @@ class Main extends Component {
 
     let location = await Location.getCurrentPositionAsync({});
     this.setState({ location });
-  }
+  };
 
   render() {
     return (
