@@ -6,7 +6,6 @@ import { LinearGradient } from 'expo';
 import { ASSET, THEME, STYLE } from '../../config';
 import styles from './Loading.style';
 
-
 export default () => {
   return (
     <LinearGradient colors={THEME.GRADIENT} style={STYLE.SCREEN}>

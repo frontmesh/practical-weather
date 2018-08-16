@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, Permissions } from 'react-native';
-import { Constants, Location } from 'expo';
+import { Text, Permissions, TouchableOpacity } from 'react-native';
+import { Constants, Location, LinearGradient } from 'expo';
 
-import { THEME } from '../../config';
+import { THEME, STYLE } from '../../config';
 const {
   COLOR: { BLACK },
   PRIMARY,
@@ -16,10 +16,13 @@ class Main extends Component {
     },
   }) => ({
     headerTransparent: true,
-    title: 'Blabla',
+    title: 'Amsterdam',
+    headerTintColor: '#fff',
+    tintColor: '#FFFFFF',
     headerStyle: {
       backgroundColor,
       elevation: 0,
+      borderBottomWidth: 0,
       shadowColor: 'transparent',
       shadowRadius: 0,
       shadowOffset: {
@@ -34,6 +37,9 @@ class Main extends Component {
       location: null,
       errorMessage: null,
     };
+  }
+  componentWillMount() {
+    this.getLocation();
   }
 
   getLocation = async () => {
@@ -50,9 +56,9 @@ class Main extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <LinearGradient colors={THEME.GRADIENT} style={STYLE.SCREEN}>
         <Text>Hello</Text>
-      </View>
+      </LinearGradient>
     );
   }
 }

@@ -10,6 +10,7 @@ const navigationOptions = {
 
 const stackOptions = {
   initialRouteName: 'Main',
+  headerMode: 'screen',
 };
 
 export default createStackNavigator(
