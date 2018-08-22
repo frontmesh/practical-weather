@@ -15,17 +15,37 @@
     "commit": "git-cz",
     "release": "release-it",
     "test": "jest",
+    "test:ci": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "appr": "appr"
   },
   "jest": {
-    "preset": "jest-expo"
+    "preset": "jest-expo",
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/coverage/**",
+      "!**/build/**",
+      "!**/assets/**"
+    ],
+    "coverageReporters": [
+      "text-summary",
+      "json-summary"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/app/assets/"
+    ]
   },
   "dependencies": {
     "expo": "^26.0.0",
     "query-string": "^6.1.0",
     "react": "16.3.0-alpha.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-26.0.0.tar.gz",
-    "react-navigation": "^1.5.11",
+    "react-native-animatable": "^1.2.4",
+    "react-navigation": "^2.6.0",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "redux-persist": "^5.10.0",
     "url": "^0.11.0"
   },
   "devDependencies": {
@@ -34,6 +54,7 @@
     "appr": "^2.0.0",
     "babel-eslint": "^8.2.2",
     "commitizen": "^2.9.6",
+    "coveralls": "^3.0.1",
     "cz-conventional-changelog": "^2.1.0",
     "eslint": "^4.19.1",
     "eslint-config-universe": "^1.0.7",

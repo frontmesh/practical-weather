@@ -1,15 +1,54 @@
-import React from 'react';
-import { Text, View, StyleSheet, StatusBar } from 'react-native';
-import App from './src/app';
+import React, { Component } from 'react';
+import { Asset, AppLoading } from 'expo';
+import { StatusBar, View } from 'react-native';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
-export default class Main extends React.Component {
+import configureStore from './src/store';
+import { LoadingScreen } from './src/screens/';
+import App from './src/app';
+import { THEME, ASSET } from './src/config';
+
+class Main extends Component {
+  constructor(props) {
+    super(props);
+
+    const { store, persistor } = configureStore();
+    this.state = {
+      store,
+      persistor,
+      isReady: false,
+    };
+  }
+
+  async _cacheResourcesAsync() {
+    const { logoList } = ASSET;
+    return Promise.all(logoList.map(img => Asset.fromModule(img).downloadAsync()));
+  }
 
   render() {
+    const { store, persistor, isReady } = this.state;
+
     return (
       <View style={{ height: '100%' }}>
-        <StatusBar backgroundColor="#852d91" barStyle="light-content" />
-        <App />
+        <StatusBar animated backgroundColor={THEME.COLOR.PRIMARY} barStyle="light-content" />
+        {!isReady ? (
+          <AppLoading
+            startAsync={this._cacheResourcesAsync}
+            onFinish={() => this.setState({ isReady: true })}
+            onError={console.warn}>
+            <LoadingScreen />
+          </AppLoading>
+        ) : (
+          <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+              <App />
+            </PersistGate>
+          </Provider>
+        )}
       </View>
     );
   }
 }
+
+export default Main;
