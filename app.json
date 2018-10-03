@@ -24,7 +24,11 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.frontmesh.practicalWeather"
+      "bundleIdentifier": "com.frontmesh.practicalWeather",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription":  "Nós utilizamos sua localização para filtrar o conteúdo de acordo com sua região ",
+        "NSLocationAlwaysUsageDescription": "Nós utilizamos sua localização para filtrar o conteúdo de acordo com sua região "
+      }
     },
     "android": {
       "package": "com.frontmesh.practicalWeather"

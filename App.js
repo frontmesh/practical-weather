@@ -22,8 +22,12 @@ class Main extends Component {
   }
 
   async _cacheResourcesAsync() {
-    const { logoList } = ASSET;
-    return Promise.all(logoList.map(img => Asset.fromModule(img).downloadAsync()));
+    try {
+      const { logoList } = ASSET;
+      return Promise.all(logoList.map(img => Asset.fromModule(img).downloadAsync()));
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   render() {

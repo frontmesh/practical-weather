@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Text, Permissions, TouchableOpacity } from 'react-native';
-import { Constants, Location, LinearGradient } from 'expo';
+import { Text, TouchableOpacity } from 'react-native';
+import { Constants, Location, LinearGradient, Permissions } from 'expo';
 
 import { THEME, STYLE } from '../../config';
 const {
@@ -43,15 +43,19 @@ class Main extends Component {
   }
 
   getLocation = async () => {
-    let { status } = await Permissions.askAsync(Permissions.LOCATION);
-    if (status !== 'granted') {
-      this.setState({
-        errorMessage: 'Permission to access location was denied',
-      });
-    }
+    try {
+      let { status } = await Permissions.askAsync(Permissions.LOCATION);
+      if (status !== 'granted') {
+        this.setState({
+          errorMessage: 'Permission to access location was denied',
+        });
+      }
 
-    let location = await Location.getCurrentPositionAsync({});
-    this.setState({ location });
+      let location = await Location.getCurrentPositionAsync({ enableHighAccuracy: true });
+      this.setState({ location });
+    } catch (error) {
+      return Promise.reject(error);
+    }
   };
 
   render() {
