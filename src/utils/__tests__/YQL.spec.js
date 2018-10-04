@@ -20,7 +20,6 @@ describe('YQL', () => {
       expect(new YQL('SHOW TABLES').config).toEqual(YQL.DEFAULT_CONFIG);
     });
 
-
     it('should remember custom config properties', () => {
       expect(new YQL('SHOW TABLES', { foo: 'bar' }).config).toHaveProperty('foo');
     });
@@ -89,18 +88,29 @@ describe('YQL', () => {
   });
 
   describe('#getURL', () => {
-    var yql = new YQL('SHOW TABLES');
-
     it('should generate the correct HTTP URL', () => {
+      const yql = new YQL('SHOW TABLES');
       expect(yql.getURL()).toBe(
         'http://query.yahooapis.com/v1/public/yql?format=json&env=http%3A%2F%2Fdatatables.org%2Falltables.env&q=SHOW%20TABLES'
       );
     });
 
     it('should generate the correct HTTPS URL', () => {
+      const yql = new YQL('SHOW TABLES');
       yql.setConfig('ssl', true);
       expect(yql.getURL()).toBe(
         'https://query.yahooapis.com/v1/public/yql?format=json&env=http%3A%2F%2Fdatatables.org%2Falltables.env&q=SHOW%20TABLES'
+      );
+    });
+
+    it('should replace the right params', () => {
+      const query = new YQL(
+        'select * from weather.forecast where woeid in (SELECT woeid FROM geo.places WHERE text="(@latitude, @longitude)")'
+      );
+      query.setParam('latitude', 37.78583).setParam('longitude', -122.406417);
+
+      expect(query.getURL()).toBe(
+        'http://query.yahooapis.com/v1/public/yql?format=json&env=http%3A%2F%2Fdatatables.org%2Falltables.env&q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(SELECT%20woeid%20FROM%20geo.places%20WHERE%20text%3D%22(37.78583%2C%20-122.406417)%22)'
       );
     });
   });

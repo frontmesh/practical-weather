@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 import { Constants, Location, LinearGradient, Permissions } from 'expo';
 
+import YQL from '../../utils/YQL';
+
 import { THEME, STYLE } from '../../config';
 const {
   COLOR: { BLACK },
@@ -39,10 +41,18 @@ class Main extends Component {
     };
   }
   componentWillMount() {
-    this.getLocation();
+    this.getLocation(location => {
+      const yql = new YQL(
+        'SELECT * FROM weather.forecast WHERE woeid in (SELECT woeid FROM geo.places WHERE text="(@latitude, @longitude)")'
+      );
+      const { coords } = location;
+
+      yql.setParam('latitude', coords.latitude).setParam('longitude', coords.longitude);
+      yql.exec((err, res) => console.log('hello from callback', err, res));
+    });
   }
 
-  getLocation = async () => {
+  getLocation = async callback => {
     try {
       let { status } = await Permissions.askAsync(Permissions.LOCATION);
       if (status !== 'granted') {
@@ -52,7 +62,8 @@ class Main extends Component {
       }
 
       let location = await Location.getCurrentPositionAsync({ enableHighAccuracy: true });
-      this.setState({ location });
+
+      callback(location);
     } catch (error) {
       return Promise.reject(error);
     }

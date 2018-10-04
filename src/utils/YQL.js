@@ -62,13 +62,20 @@ class YQL {
     const baseURL = this.config.baseURL[this.config.ssl ? 'https' : 'http'];
     // Create base url object
     const urlObj = url.parse(baseURL, true);
+
+    Object.keys(this.params).forEach(param => {
+      this.query = this.query.replace(`@${param}`, this.params[param]);
+    });
+
     const opts = {
       format: 'json',
       env: this.config.env,
       q: this.query,
     };
 
-    urlObj.query = { ...urlObj.query, ...opts, ...this.params };
+    console.log(opts);
+    urlObj.query = { ...urlObj.query, ...opts };
+
     this._urlObj = urlObj;
     return urlObj.format();
   }
@@ -113,8 +120,8 @@ class YQL {
     }
   }
 
-  _httpRequest(...args) {
-    fetch(...args);
+  _httpRequest(config, handler) {
+    return fetch(config).then(handler);
   }
 }
 
