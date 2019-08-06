@@ -1,73 +1,38 @@
 {
-  "main": "node_modules/expo/AppEntry.js",
-  "private": true,
-  "name": "practical-weather",
-  "version": "1.0.4",
-  "author": {
-    "name": "Vladimir Vujosevic",
-    "email": "vladimirvuj@gmail.com"
-  },
-  "eslintConfig": {
-    "extends": "universe/native"
-  },
   "scripts": {
-    "commitmsg": "commitlint -e $GIT_PARAMS",
-    "commit": "git-cz",
-    "release": "release-it",
-    "test": "jest",
-    "test:ci": "jest --coverage && cat ./coverage/lcov.info | coveralls",
-    "appr": "appr"
-  },
-  "jest": {
-    "preset": "jest-expo",
-    "collectCoverageFrom": [
-      "**/*.{js,jsx}",
-      "!**/node_modules/**",
-      "!**/coverage/**",
-      "!**/build/**",
-      "!**/assets/**"
-    ],
-    "coverageReporters": [
-      "text-summary",
-      "json-summary"
-    ],
-    "testPathIgnorePatterns": [
-      "<rootDir>/node_modules/",
-      "<rootDir>/app/assets/"
-    ]
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "web": "expo start --web",
+    "start": "react-native start",
+    "test": "jest"
   },
   "dependencies": {
-    "expo": "^26.0.0",
-    "query-string": "^6.1.0",
-    "react": "16.3.0-alpha.1",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-26.0.0.tar.gz",
-    "react-native-animatable": "^1.2.4",
-    "react-navigation": "^2.6.0",
-    "react-redux": "^5.0.7",
-    "redux": "^4.0.0",
-    "redux-persist": "^5.10.0",
-    "url": "^0.11.0"
+    "expo": "^34.0.1",
+    "fp-ts": "^2.0.3",
+    "lodash.debounce": "^4.0.8",
+    "lodash.throttle": "^4.1.1",
+    "react": "16.8.3",
+    "react-dom": "^16.8.6",
+    "react-native": "0.59.8",
+    "react-native-elements": "^1.1.0",
+    "react-native-gesture-handler": "~1.3.0",
+    "react-native-reanimated": "~1.1.0",
+    "react-native-unimodules": "~0.5.2",
+    "react-native-web": "^0.11.4",
+    "react-navigation": "^3.11.1",
+    "react-navigation-hooks": "^1.0.1",
+    "tsmonad": "^0.8.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^6.1.3",
-    "@commitlint/config-conventional": "^6.1.3",
-    "appr": "^2.0.0",
-    "babel-eslint": "^8.2.2",
-    "commitizen": "^2.9.6",
-    "coveralls": "^3.0.1",
-    "cz-conventional-changelog": "^2.1.0",
-    "eslint": "^4.19.1",
-    "eslint-config-universe": "^1.0.7",
-    "eslint-plugin-react": "^7.7.0",
-    "exp": "^54.0.0",
-    "husky": "^0.14.3",
-    "jest-expo": "^27.0.1",
-    "prettier": "1.12.0",
-    "react-native-dotenv": "^0.1.1"
+    "@babel/core": "^7.0.0",
+    "@types/react": "^16.8.23",
+    "@types/react-native": "^0.57.65",
+    "babel-preset-expo": "^6.0.0",
+    "jest-expo": "^34.0.0",
+    "typescript": "^3.4.5"
   },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
-  }
+  "jest": {
+    "preset": "react-native"
+  },
+  "private": true
 }
