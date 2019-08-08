@@ -8,6 +8,17 @@ import SearchLayout from 'react-navigation-addon-search-layout';
 import { Ionicons } from '@expo/vector-icons';
 import throttle from 'lodash.throttle';
 
+import { Either, left, right, fold } from 'fp-ts/lib/Either'
+import { tryCatch } from 'fp-ts/lib/TaskEither'
+import { pipe } from 'fp-ts/lib/pipeable'
+
+
+const fetchPlaces = tryCatch<Error, { name: string }>(
+  () => new Promise(resolve => resolve(JSON.parse('{ "name": "Carol" }'))),
+  reason => new Error(String(reason))
+);
+
+
 
 const AddLocation = (props) => {
   const [search, setSearch] = useState('');
@@ -17,7 +28,10 @@ const AddLocation = (props) => {
     console.log("TCL: Main -> render -> search", search)
   };
 
-  const throttled = useRef(throttle((newValue) => console.log('throttle', newValue), 1000));
+  const throttled = useRef(throttle((s: string): Either<Array, Array> => s.length >= 3 ? fetchPlaces().then(r => pipe(
+    r,
+    fold(err => `I'm sorry, I don't know who you are. (${err.message})`, x => `Hello, ${x.name}!`)
+  )).then(console.log) : left([]), 1000));
 
   useEffect(() => {
     throttled.current(search)
