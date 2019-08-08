@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import AppRoot from './src/root';
+import Root from './src/Root';
 
 export default function() {
-  return (<AppRoot />);
+  return (<Root />);
 }

@@ -20,6 +20,8 @@
     "react-native-unimodules": "~0.5.2",
     "react-native-web": "^0.11.4",
     "react-navigation": "^3.11.1",
+    "react-navigation-addon-search-layout": "^0.13.1",
+    "react-navigation-header-buttons": "^3.0.1",
     "react-navigation-hooks": "^1.0.1",
     "tsmonad": "^0.8.0"
   },

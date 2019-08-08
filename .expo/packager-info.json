@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 79002,
-  "expoServerNgrokUrl": "https://ki-nv4.anonymous.practical-weather.exp.direct",
-  "packagerNgrokUrl": "https://packager.ki-nv4.anonymous.practical-weather.exp.direct",
-  "ngrokPid": 79035
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }
